@@ -13,15 +13,22 @@ def game_core_v2(number: int = 1) -> int:
     count = 0
     predict = np.random.randint(1, 101)
     print(f'Первое число комп предположил - {predict}')
-    #a = 3
-    for i in range(0,5):# располовиним несколько раз интервал и уменьшим зону поиска
+    
+    #создадим 2 списка, в них будем хранить результаты подстановок
+    #и сделаем их границами нашего поиска
+    min_lst=[]#левая граница
+    max_lst=[]#правая граница
+    
+    for i in range(0,15):# уменьшим зону поиска
         if predict < number:
-            a = (100-predict) // 2
-            predict += a
+            min_lst.append(predict)
+            a = max(min_lst)
+            predict = np.random.randint(a, 101)
             count +=1
         else:
-            a = (predict) // 2
-            predict = a
+            max_lst.append(predict)
+            a = min(max_lst)+1
+            predict = np.random.randint(1, a)
             count +=1
     
     while number != predict:
